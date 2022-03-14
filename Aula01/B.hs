@@ -1,11 +1,11 @@
-module Main where
+module B where
 
 data Alphabet = Zero | One | Epsilon
   deriving (Show)
 
 type Sentence = [Alphabet]
 
--- Accepts any sequence that starts with a 0 and rejects everything else
+-- This language accepts any sequence that starts and ends with the same symbol
 
 -- Start symbol
 s :: Sentence -> Bool

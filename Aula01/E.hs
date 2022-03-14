@@ -5,7 +5,7 @@ data Alphabet = Zero | One | Epsilon
 
 type Sentence = [Alphabet]
 
--- Accepts any sequence that starts with a 0 and rejects everything else
+-- This language accepts any sequence that starts with a 0 and rejects everything else
 
 -- Start symbol
 s :: Sentence -> Bool
