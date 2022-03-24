@@ -10,22 +10,19 @@ type Sentence = [Alphabet]
 s :: Sentence -> Bool
 s (a : as) = case a of
   Bar -> x as
-  Asterisk -> False
-  Anything -> False
+  _ -> False
 s [] = True
 
 x :: Sentence -> Bool
 x (a : as) = case a of
-  Bar -> False
   Asterisk -> y as
-  Anything -> False
+  _ -> False
 x [] = False
 
 y :: Sentence -> Bool
 y (a : as) = case a of
-  Bar -> y as
   Asterisk -> w as
-  Anything -> y as
+  _ -> y as
 y [] = False
 
 w :: Sentence -> Bool
