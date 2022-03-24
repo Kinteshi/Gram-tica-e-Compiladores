@@ -19,15 +19,15 @@ ta = T 'a'
 tb = T 'b'
 tc = T 'c'
 
--- s, x, y :: Producer
--- s = NT [[x, y]] -- S -> XY
--- x = NT [[ta, tb], [ta, x, tb]] -- X -> aXb | ab
--- y = NT [[tb, tc], [tb, y, tc]] -- Y -> bYc | bc
-
 s, x, y :: Producer
-s = NT [[ta, x], [tb, y]]
-x = NT [[tb], [tb, x], [ta, x]]
-y = NT [[ta], [ta, y], [tb, y]]
+s = NT [[x, y]] -- S -> XY
+x = NT [[ta, tb], [ta, x, tb]] -- X -> ab | aXb
+y = NT [[tb, tc], [tb, y, tc]] -- Y -> bc | bYc
+
+-- s, x, y :: Producer
+-- s = NT [[ta, x], [tb, y]]
+-- x = NT [[tb], [tb, x], [ta, x]]
+-- y = NT [[ta], [ta, y], [tb, y]]
 
 -- t0, t1 :: Producer
 -- t0 = T '0'
@@ -42,15 +42,6 @@ generateLanguage (NT rules) = do
     words <- mapM generateLanguage rule
     return $ concat words
 
-
-generateLanguageWithMaxLength :: Int -> Producer -> Omega String
-generateLanguageWithMaxLength maxLength p = do
-    w <- generateLanguage p
-    if length w <= maxLength
-        then return w
-        else return []
-
-
 omegaGenerateLanguage :: Producer -> [String]
 omegaGenerateLanguage = runOmega . generateLanguage
 
@@ -60,4 +51,3 @@ maxLength m s = length s <= m
 main :: IO ()
 main = do
     print $ filter (maxLength 10) $ take 100 $ omegaGenerateLanguage s
-    -- print $ runOmega $ generateLanguageWithMaxLength 10 s
